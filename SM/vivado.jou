@@ -11,3 +11,6 @@
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/TAN/Desktop/SM/SM.xpr
+close [ open C:/Users/TAN/Desktop/SM/SM.srcs/sources_1/new/FpMultiplier.v w ]
+add_files C:/Users/TAN/Desktop/SM/SM.srcs/sources_1/new/FpMultiplier.v
+update_compile_order -fileset sources_1
