@@ -1,0 +1,16 @@
+#-----------------------------------------------------------
+# Vivado v2015.3 (64-bit)
+# SW Build 1368829 on Mon Sep 28 20:06:43 MDT 2015
+# IP Build 1367837 on Mon Sep 28 08:56:14 MDT 2015
+# Start of session at: Sun Dec 31 10:48:06 2017
+# Process ID: 8132
+# Current directory: C:/Users/TAN/Desktop/SM
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent7668 C:\Users\TAN\Desktop\SM\SM.xpr
+# Log file: C:/Users/TAN/Desktop/SM/vivado.log
+# Journal file: C:/Users/TAN/Desktop/SM\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/TAN/Desktop/SM/SM.xpr
+close [ open C:/Users/TAN/Desktop/SM/SM.srcs/sources_1/new/FpMultiplier.v w ]
+add_files C:/Users/TAN/Desktop/SM/SM.srcs/sources_1/new/FpMultiplier.v
+update_compile_order -fileset sources_1

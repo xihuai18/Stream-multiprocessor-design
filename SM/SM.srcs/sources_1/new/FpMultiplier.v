@@ -10,7 +10,7 @@ reg [1:0] overflow;
 
 //use this formula£º(1.a)*(1.b) = 1 + (.a + .b) + .a*.b
 
-reg signA, signB, singR;
+reg signA, signB, signR;
 reg [7:0] expA, expB, expR;
 reg [22:0] manA, manB, manR;
 reg normalRight; //the bits needed of the normalization to the right    
@@ -58,7 +58,7 @@ always@(A or B) begin
     signR = signA ^ signB;
 
 //output
-    Result = {signR, expR, mamR};
+    Result = {signR, expR, manR};
 end
 
 endmodule

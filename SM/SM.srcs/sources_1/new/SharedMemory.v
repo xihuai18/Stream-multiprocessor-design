@@ -1,25 +1,42 @@
-`define K 1024
+`define K 4
 `define MAX 9
 
 //may be we can consider other methods to avoid confilcts, such as maintain a vector.
 
 module ShareMemory(
     input wire clk,
-    input wire MemoryWrite[7:0],
-    input wire MemoryRead[7:0],
-    input wire [31:0] WriteData[7:0],
-    input wire [31:0] Address[7:0],
+    input wire [7:0] MemoryWrite,
+    input wire [7:0] MemoryRead,
+    input wire [31:0][7:0] WriteData,
+//    input wire [31:0] WriteData0, [31:0] WriteData1, [31:0] WriteData2, [31:0] WriteData3, [31:0] WriteData4, [31:0] WriteData5, [31:0] WriteData6, [31:0] WriteData7, 
+    input wire [31:0][7:0] Address,
+//    input wire [31:0] AddressReal0, [31:0] AddressReal1, [31:0] AddressReal2, [31:0] AddressReal3, [31:0] AddressReal4, [31:0] AddressReal5, [31:0] AddressReal6, [31:0] AddressReal7, 
     output reg [7:0] Return,
-    output reg [7:0] RequestVector[15:0],
-    output reg [31:0] Data[15:0]
+    output reg [7:0][15:0] RequestVector,
+//    output reg [7:0] RequestVectorReal[0], [7:0] RequestVectorReal[1], [7:0] RequestVectorReal[2], [7:0] RequestVectorReal[3], [7:0] RequestVectorReal[4], [7:0] RequestVectorReal[5], [7:0] RequestVectorReal[6], [7:0] RequestVectorReal[7], [7:0] RequestVectorReal[8], [7:0] RequestVectorReal[9], [7:0] RequestVectorReal[1]0, [7:0] RequestVectorReal[1]1, [7:0] RequestVectorReal[1]2, [7:0] RequestVectorReal[1]3, [7:0] RequestVectorReal[1]4, [7:0] RequestVectorReal[1]5, 
+    output reg [31:0][15:0] Data
+//    output reg [31:0]Data0, [31:0]Data1, [31:0]Data2, [31:0]Data3, [31:0]Data4, [31:0]Data5, [31:0]Data6, [31:0]Data7, [31:0]Data8, [31:0]Data9, [31:0]Data10, [31:0]Data11, [31:0]Data12, [31:0]Data13, [31:0]Data14, [31:0]Data15
 );
 
-reg [0:4*`K-1][7:0] bank[15:0];
+reg [31:0]WriteDataReal[7:0];
+reg [31:0]AddressReal[7:0];
+reg [7:0]RequestVectorReal[15:0];
+reg [31:0]DataReal[15:0];
+
+integer i, j, t, z;
+
+always@(Address or WriteData) begin
+    for(i = 0; i < 8; i = i + 1) begin
+        AddressReal[i] = Address[i];
+        WriteDataReal[i] = WriteData[i];
+    end
+end
+
+reg [7:0] banks[64*`K-1:0];
 reg [3:0] targetBank[7:0];
 reg [3:0] firstReq[7:0];
-reg [2:0] conficts[7:0];
+reg [2:0] conflicts[7:0];
 
-integer i;
 integer head, tail;
 
 initial begin
@@ -28,98 +45,96 @@ initial begin
 end
 
 //find the targetBanks and read
-always@(MemoryRead or Address or MemoryWrite or WriteData) begin
+always@(posedge clk) begin
     for(i = 0; i < 8; i = i + 1) begin
         firstReq[i] = 8;
-//        Return[i] = 0;
     end
     for(i = 0; i < 8; i = i + 1) begin
-        if(Address[i] < `K) begin
+        if(AddressReal[i]/4 % 16 == 0) begin
             targetBank[i] <= 0;
-//            RequestVector[targetBank[i]][i] = 1;
-            RequestVector[0][i]<=1;
+            RequestVectorReal[0][i]<=1;
         end
-        else if(Address[i] < 2*`K) begin
-            RequestVector[0][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 1) begin
+            RequestVectorReal[0][i] <= 0;
             targetBank[i] <= 1;
-            RequestVector[1][i] <= 1;
+            RequestVectorReal[1][i] <= 1;
         end
-        else if(Address[i] < 3*`K) begin
-            RequestVector[1][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 2) begin
+            RequestVectorReal[1][i] <= 0;
             targetBank[i] <= 2;
-            RequestVector[2][i] <= 1;
+            RequestVectorReal[2][i] <= 1;
         end
-        else if(Address[i] < 4*`K) begin
-            RequestVector[2][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 3) begin
+            RequestVectorReal[2][i] <= 0;
             targetBank[i] <= 3;
-            RequestVector[3][i] <= 1;
+            RequestVectorReal[3][i] <= 1;
         end
-        else if(Address[i] < 5*`K) begin
-            RequestVector[3][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 4) begin
+            RequestVectorReal[3][i] <= 0;
             targetBank[i] <= 4;
-            RequestVector[4][i] <= 1;
+            RequestVectorReal[4][i] <= 1;
         end
-        else if(Address[i] < 6*`K) begin
-            RequestVector[4][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 5) begin
+            RequestVectorReal[4][i] <= 0;
             targetBank[i] <= 5;
-            RequestVector[5][i] <= 1;
+            RequestVectorReal[5][i] <= 1;
         end
-        else if(Address[i] < 7*`K) begin
-            RequestVector[5][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 6) begin
+            RequestVectorReal[5][i] <= 0;
             targetBank[i] <= 6;
-            RequestVector[6][i] <= 1;
+            RequestVectorReal[6][i] <= 1;
         end
-        else if(Address[i] < 8*`K) begin
-            RequestVector[6][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 7) begin
+            RequestVectorReal[6][i] <= 0;
             targetBank[i] <= 7;
-            RequestVector[7][i] <= 1;
+            RequestVectorReal[7][i] <= 1;
         end
-        else if(Address[i] < 9*`K) begin
-            RequestVector[7][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 8) begin
+            RequestVectorReal[7][i] <= 0;
             targetBank[i] <= 8;
-            RequestVector[8][i] <= 1;
+            RequestVectorReal[7][i] <= 1;
         end
-        else if(Address[i] < 10*`K) begin
-            RequestVector[8][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 9) begin
+            RequestVectorReal[8][i] <= 0;
             targetBank[i] <= 9;
-            RequestVector[9][i] <= 1;
+            RequestVectorReal[9][i] <= 1;
         end
-        else if(Address[i] < 11*`K) begin
-            RequestVector[9][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 10) begin
+            RequestVectorReal[9][i] <= 0;
             targetBank[i] <= 10;
-            RequestVector[10][i] <= 1;
+            RequestVectorReal[10][i] <= 1;
         end
-        else if(Address[i] < 12*`K) begin
-            RequestVector[10][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 11) begin
+            RequestVectorReal[10][i] <= 0;
             targetBank[i] <= 11;
-            RequestVector[11][i] <= 1;
+            RequestVectorReal[11][i] <= 1;
         end
-        else if(Address[i] < 13*`K) begin
-            RequestVector[11][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 12) begin
+            RequestVectorReal[11][i] <= 0;
             targetBank[i] <= 12;
-            RequestVector[12][i] <= 1;
+            RequestVectorReal[12][i] <= 1;
         end
-        else if(Address[i] < 14*`K) begin
-            RequestVector[12][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 13) begin
+            RequestVectorReal[12][i] <= 0;
             targetBank[i] <= 13;
-            RequestVector[13][i] <= 1;
+            RequestVectorReal[13][i] <= 1;
         end
-        else if(Address[i] < 15*`K) begin
-            RequestVector[13][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 14) begin
+            RequestVectorReal[13][i] <= 0;
             targetBank[i] <= 14;
-            RequestVector[14][i] <= 1;
+            RequestVectorReal[14][i] <= 1;
         end
-        else if(Address[i] < 16*`K) begin
-            RequestVector[14][i] <= 0;
+        else if(AddressReal[i]/4 % 16 == 15) begin
+            RequestVectorReal[14][i] <= 0;
             targetBank[i] <= 15;
-            RequestVector[15][i] <= 1;
+            RequestVectorReal[15][i] <= 1;
         end
         else begin
-            RequestVector[15][i] <= 0;
+            RequestVectorReal[15][i] <= 0;
         end
         if(firstReq[targetBank[i]] != 8) begin
-            if(Address[i] != Address[firstReq[targetBank[i]]] && MemoryRead[i] == 1) begin
-                RequestVector[targetBank[i]][i] <= 0;
+            if(AddressReal[i] != AddressReal[firstReq[targetBank[i]]] && MemoryRead[i] == 1) begin
+                RequestVectorReal[targetBank[i]][i] <= 0;
                 tail <= (tail+1)%`MAX;
                 conflicts[tail] <= i;
                 Return[i] <= 0;
@@ -130,44 +145,50 @@ always@(MemoryRead or Address or MemoryWrite or WriteData) begin
                 end
             end
 //            else if(MemoryRead[i] == 1) begin        
-//                Data[targetBank[i]] <= bank[targetBank[i]][Address[i] - targetBank[i] * `K];
+//                Data[targetBank[i]] <= bank[targetBank[i]][AddressReal[i] - targetBank[i] * `K];
 //            end 
         end
         else begin
             if(MemoryRead[i] == 1) begin
                 firstReq[targetBank[i]] <= i;
-                Data[targetBank[i]] <= bank[targetBank[i]][(Address[i] - targetBank[i] * `K):(Address[i] - targetBank[i] * `K + 3)];
+                DataReal[targetBank[i]] <= {banks[AddressReal[i]], banks[AddressReal[i]+1] , banks[AddressReal[i]+2], banks[AddressReal[i]+3]};
                 Return[i] <= 1;
             end
         end
+    end
+//serial read
+    if((tail+1)%`MAX != head) begin
+        DataReal[targetBank[conflicts[head]]] <= {banks[AddressReal[conflicts[head]]], banks[AddressReal[conflicts[head]]+1], banks[AddressReal[conflicts[head]]+2], banks[AddressReal[conflicts[head]]+3]};
+        for(j = 0; j < 8; j = j + 1) begin
+            if(j == conflicts[head]) begin
+                RequestVectorReal[j] <= 1;
+            end
+            else begin
+                RequestVectorReal[j] <= 0;
+            end
+        end
+        Return[conflicts[head]] <= 1;
+        head <= (head+1)%`MAX;
     end
 end
 
 //write
 always@(posedge clk) begin
-    for(i = 0; i < 8; i = i + 1) begin
-        if(MemoryWrite[i] == 1) begin
-            bank[targetBank[i]] <= WriteData[i];
+    for(t = 0; t < 8; t = t + 1) begin
+        if(MemoryWrite[t] == 1) begin
+            {banks[AddressReal[t]], banks[AddressReal[t]+1], banks[AddressReal[t]+2], banks[AddressReal[t]+3]} <= WriteDataReal[t];
         end
     end
 end
 
-//serial read
-always@(posedge clk) begin
-    if((tail+1)%`MAX != head) begin
-        Data[targetBank[conflicts[head]]] <= bank[targetBank[conflicts[head]]][Address[conflicts[head]] - targetBank[conflicts[head]] * `K:(Address[conflicts[head]] - targetBank[conflicts[head]] * `K + 3)];
-        for(i = 0; i < 8; i = i + 1) begin
-            if(i == conflicts[head]) begin
-                RequestVector[i] <= 1;
-            end
-            else begin
-                RequestVector[i] <= 0;
-            end
-        end
-        Result[conflicts[head]] <= 1;
-        head <= (head+1)%`MAX;
+always@(*) begin
+    for(z = 0; z < 16; z = z + 1) begin
+        RequestVector[z] = RequestVectorReal[z];
+        Data[z] = DataReal[z]; 
     end
 end
+
+
 
 endmodule
 
