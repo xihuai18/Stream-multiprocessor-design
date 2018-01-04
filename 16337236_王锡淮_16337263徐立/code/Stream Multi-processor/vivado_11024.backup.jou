@@ -1,0 +1,229 @@
+#-----------------------------------------------------------
+# Vivado v2015.3 (64-bit)
+# SW Build 1368829 on Mon Sep 28 20:06:43 MDT 2015
+# IP Build 1367837 on Mon Sep 28 08:56:14 MDT 2015
+# Start of session at: Mon Jan 01 11:08:16 2018
+# Process ID: 11024
+# Current directory: C:/Users/TAN/Desktop/SM
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent4000 C:\Users\TAN\Desktop\SM\SM.xpr
+# Log file: C:/Users/TAN/Desktop/SM/vivado.log
+# Journal file: C:/Users/TAN/Desktop/SM\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/TAN/Desktop/SM/SM.xpr
+launch_simulation
+source test.tcl
+add_wave {{/test/SM/InsCache/InsMem}} 
+add_wave {{/test/SM/InsCache/BarrierNum}} 
+add_wave {{/test/SM/InsCache/InsReal}} 
+add_wave {{/test/SM/InsCache/InsPtr}} 
+relaunch_sim
+relaunch_sim
+run 10 us
+run 10 us
+relaunch_sim
+relaunch_sim
+relaunch_sim
+add_wave {{/test/SM/InsCache/validVector}} 
+relaunch_sim
+relaunch_sim
+add_wave {{/test/SM/\SP[0]._SP /Occupied}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[0]._SP /Occupied}} 
+add_wave {{/test/SM/\SP[0]._SP /CU/pst}} 
+restart
+run 10 us
+add_wave {{/test/SM/InsCache/validVector}} 
+restart
+run 10 us
+relaunch_sim
+run 10 us
+run 10 us
+add_wave {{/test/SM/MulInsUnit}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[0]._SP }} 
+restart
+run 10 us
+add_wave {{/test/SM/InsCache/validVector}} 
+add_wave {{/test/SM/CLK}} 
+add_wave {{/test/SM/InsCache/InsMem}} 
+add_wave {{/test/SM/Ins}} 
+add_wave {{/test/SM/MulInsUnit/validVectorTo}} 
+add_wave {{/test/SM/MulInsUnit/instructions}} 
+add_wave {{/test/SM/MulInsUnit/Ins}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[0]._SP /instruction}} 
+restart
+run 10 us
+close_sim
+launch_simulation
+source test.tcl
+add_wave {{/test/SM/InsCache/validVector}} 
+add_wave {{/test/SM/InsCache/InsPtr}} 
+add_wave {{/test/SM/InsCache/InsMem}} 
+add_wave {{/test/SM/InsCache/Ins}} 
+add_wave {{/test/SM/InsCache/BarrierNum}} 
+add_wave {{/test/SM/MulInsUnit/instructions}} 
+add_wave {{/test/SM/\SP[0]._SP /instruction}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[0]._SP /Occupied}} 
+restart
+run 10 us
+add_wave {{/test/SM/InsCache/InsReal}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[0]._SP /RF/regFile}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[0]._SP /RF/regFile}} 
+add_wave {{/test/SM/\SP[6]._SP /RF/regFile}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[1]._SP /RF/regFile}} 
+restart
+run 10 us
+add_wave {{/test/SM/\SP[4]._SP /RF}} 
+restart
+run 2000 ns
+add_wave {{/test/SM/\SP[0]._SP /alu/result}} 
+restart
+run 2000 ns
+add_wave {{/test/SM/\SP[0]._SP /ALUSrcB}} 
+restart
+run 2000 ns
+restart
+run 2000 ns
+add_wave {{/test/SM/\SP[0]._SP /CU/pst}} 
+restart
+restart
+run 1800 ns
+restart
+run 1800 ns
+relaunch_sim
+run 1800 ns
+add_wave {{/test/SM/\SP[0]._SP /RF/regFile}} 
+restart
+run 1800 ns
+run 1800 ns
+add_wave {{/test/SM/\SP[5]._SP /RF/regFile}} 
+restart
+run 1800 ns
+add_wave {{/test/SM/\SP[3]._SP /RF/regFile}} 
+restart
+run 1800 ns
+run 1800 ns
+add_wave {{/test/SM/\SP[4]._SP /RF/regFile}} 
+restart
+run 1800 ns
+run 1800 ns
+add_wave {{/test/SM/\SP[3]._SP /Occupied}} 
+add_wave {{/test/SM/\SP[3]._SP /rega}} 
+add_wave {{/test/SM/\SP[3]._SP /regb}} 
+add_wave {{/test/SM/\SP[3]._SP /result}} 
+restart
+run 1800 ns
+restart
+run 5000 ns
+add_wave {{/test/SM/\SP[3]._SP /CU/pst}} 
+restart
+run 5000 ns
+restart
+run 5000 ns
+relaunch_sim
+run 5000 ns
+relaunch_sim
+run 5000 ns
+run 5000 ns
+add_wave {{/test/SM/\SP[3]._SP /alu/expa}} 
+add_wave {{/test/SM/\SP[3]._SP /alu/expb}} 
+restart
+run 5000 ns
+add_wave {{/test/SM/\SP[3]._SP /alu/rega}} 
+add_wave {{/test/SM/\SP[3]._SP /alu/regb}} 
+add_wave {{/test/SM/\SP[3]._SP /alu/ALUOp}} 
+restart
+run 5000 ns
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Users/TAN/Desktop/SM/SM.srcs/sim_1/new/testAdd.v w ]
+add_files -fileset sim_1 C:/Users/TAN/Desktop/SM/SM.srcs/sim_1/new/testAdd.v
+update_compile_order -fileset sim_1
+launch_runs synth_1
+wait_on_run synth_1
+close_sim
+launch_simulation
+source test.tcl
+set_property is_enabled false [get_files  C:/Users/TAN/Desktop/SM/SM.srcs/sim_1/new/test.v]
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+launch_simulation
+source StreamingMultiprocesser.tcl
+set_property is_enabled false [get_files  C:/Users/TAN/Desktop/SM/SM.srcs/sources_1/new/StreamingMultiprocesser.v]
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+set_property is_enabled true [get_files  C:/Users/TAN/Desktop/SM/SM.srcs/sources_1/new/StreamingMultiprocesser.v]
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sources_1
+set_property is_enabled true [get_files  C:/Users/TAN/Desktop/SM/SM.srcs/sim_1/new/test.v]
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+remove_files -fileset sim_1 C:/Users/TAN/Desktop/SM/SM.srcs/sim_1/new/testAdd.v
+file delete -force C:/Users/TAN/Desktop/SM/SM.srcs/sim_1/new/testAdd.v
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+source StreamingMultiprocesser.tcl
+close_sim
+launch_simulation
+source StreamingMultiprocesser.tcl
+close_sim
+run 5000 ns
+launch_simulation
+source StreamingMultiprocesser.tcl
+add_wave {{/test/SM/\SP[2]._SP /alu/FA}} 
+run 5000 ns
+relaunch_sim
+current_sim simulation_7
+close_sim
+launch_simulation
+source StreamingMultiprocesser.tcl
+update_compile_order -fileset sim_1
+update_compile_order -fileset sim_1
+close_sim
+launch_simulation
+source test.tcl
+current_sim simulation_8
+close_sim
+relaunch_sim
+reset_run synth_1
+launch_runs synth_1
+wait_on_run synth_1
+launch_runs impl_1
+wait_on_run impl_1
+update_compile_order -fileset sources_1
+relaunch_sim
+update_compile_order -fileset sources_1
+relaunch_sim
+add_wave {{/test/SM/CLK}} 
+add_wave {{/test/SM/InsCache/InsMem}} 
+add_wave {{/test/SM/InsCache/InsPtr}} 
+add_wave {{/test/SM/\SP[3]._SP /result}} 
+restart
+run 5000 ns
+run 5000 ns
+reset_run synth_1
+launch_runs synth_1
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+close_sim

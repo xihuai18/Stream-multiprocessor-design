@@ -1,7 +1,0 @@
-Running: xsim.dir/StreamingMultiprocesser_behav/xsimk.exe -simmode gui -wdb StreamingMultiprocesser_behav.wdb -simrunnum 0 -socket 53866
-Design successfully loaded
-Design Loading Memory Usage: 20528 KB (Peak: 20528 KB)
-Design Loading CPU Usage: 124 ms
-Simulation completed
-Simulation Memory Usage: 22920 KB (Peak: 22920 KB)
-Simulation CPU Usage: 187 ms
