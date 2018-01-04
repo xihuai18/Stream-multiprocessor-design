@@ -1,5 +1,5 @@
 ## Design and Implementation of General Computing Stream Multiprocessor in Graphics Processor
-这是2017~2018学年上半学期我和@Control-xl(徐立)共同完成的计算机组成与设计课程的课程设计。
+这是2017~2018学年上半学期我和@Control-xl共同完成的计算机组成与设计课程的课程设计。
 
 选题是图形处理器中通用计算流多处理器的设计与实现。
 
