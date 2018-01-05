@@ -1,5 +1,5 @@
 ## Design and Implementation of General Computing Stream Multiprocessor in Graphics Processor
-![license](https://img.shields.io/github/license/mashape/apistatus.svg)![continuousphp](https://img.shields.io/continuousphp/git-hub/doctrine/dbal/master.svg)
+![license](https://img.shields.io/github/license/mashape/apistatus.svg) ![continuousphp](https://img.shields.io/continuousphp/git-hub/doctrine/dbal/master.svg)
 
 这是2017~2018学年上半学期我和@Control-xl共同完成的计算机组成与设计课程的课程设计。
 
